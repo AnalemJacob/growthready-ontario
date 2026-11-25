@@ -3,6 +3,7 @@
 Requires reportlab and matplotlib in addition to requirements-gis.txt.
 """
 import json
+import hashlib
 from pathlib import Path
 from xml.sax.saxutils import escape
 import matplotlib
@@ -26,6 +27,9 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 ROOT=Path(__file__).resolve().parents[1]
 D=json.loads((ROOT/'assets/data/vaughan-study.json').read_text());S=D['summary'];M=D['metadata']
+QPATH=ROOT/'data/qgis_validation.json'
+Q=json.loads(QPATH.read_text()) if QPATH.exists() else None
+if Q and Q['study_sha256']!=hashlib.sha256((ROOT/'assets/data/vaughan-study.json').read_bytes()).hexdigest():raise RuntimeError('QGIS validation is stale; rerun validate_qgis.py before building the brief')
 TMP=ROOT/'tmp/pdfs';TMP.mkdir(parents=True,exist_ok=True)
 OUT=ROOT/'output/pdf';OUT.mkdir(parents=True,exist_ok=True)
 project=pyproj.Transformer.from_crs(4326,26917,always_xy=True).transform
@@ -92,7 +96,8 @@ heading('Reproducible method')
 p('1. Select records whose source MUN_NAME equals Vaughan. Preserve the original GeoJSON application coordinates for display.<br/>2. Transform application and construction geometry from WGS84 to EPSG:26917 for metre-based analysis.<br/>3. Select published construction line features intersecting the Vaughan municipal polygon. Compute the minimum full-geometry distance to each line; retain the nearest source line ID. Ties use the lower OBJECTID.<br/>4. Classify unrounded distances into mutually exclusive 250 m, 500 m and 1,000 m bands.<br/>5. Assign one interior representative point per application to a fixed 1,000 m grid anchored at UTM (0, 0). Sum records per occupied cell.')
 heading('Quality checks and limits')
 p(f'{len(M["qa"]["geometry_repairs"])} source application geometries required repair for analysis. {len(M["qa"]["representative_points_outside_municipality"])} representative points fell outside Vaughan. All analysis geometries passed validity checks. These checks do not measure positional accuracy.')
-p('Source hashes, software versions, run time and summary totals are retained in data/vaughan_analysis_audit.json. Display distances are rounded, but this does not imply millimetre positional accuracy. The source UNITS field is not used as a dwelling count. Application status is not treated as approval or construction status.')
+if Q:p(f'QGIS {Q["qgis_version"]} independently recalculated all {Q["checked_records"]:,} records: {Q["mismatch_count"]} mismatches in nearest lines, bands and grid assignments. Maximum distance difference from stored rounded values: {Q["max_absolute_difference_m"]:.6f} m. QGIS and Shapely both use GEOS; this checks computation, not positional accuracy.','SmallDV')
+p('Source hashes and per-record checks are retained in data/vaughan_analysis_audit.json and data/qgis_validation.json. Numerical precision does not imply millimetre mapping accuracy. UNITS is Yes/No, not a dwelling count; source status is not approval or construction status.','SmallDV')
 heading('Official source services')
 for label,url in zip(['Development application boundaries','Active water/wastewater construction lines','Municipal boundary'],M['source_urls']):p(f'<b>{label}</b><br/><link href="{escape(url)}" color="#087763">{escape(url)}</link>','SmallDV')
 p('Source snapshot retrieval does not establish source currency. This is a dated screening study, not a live servicing assessment.','SmallDV')

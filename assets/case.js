@@ -2,7 +2,7 @@ import {filterCaseRecords,caseSummary} from './case-model.js';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const bands=['0–250 m','>250–500 m','>500–1,000 m','>1,000 m'];
 const colors=['#157d70','#78aebc','#c6a15d','#b6c0c5'];
-let data,records=[],selected=null,limit=25,map,applications,grid,highlight,mode='polygons';
+let data,records=[],selected=null,selectedCell=null,limit=25,map,applications,grid,highlight,mode='polygons';
 const filters=()=>({band:$('case-band').value,type:$('case-type').value,search:$('case-search').value});
 function notice(text){$('case-notice').textContent=text;$('case-notice').style.display='block';setTimeout(()=>$('case-notice').style.display='none',4000)}
 const byId=new Map(),featureById=new Map();
@@ -24,7 +24,8 @@ function list(){
  $('case-more').hidden=limit>=records.length;
 }
 function update(){
- records=filterCaseRecords(data.records,filters());limit=25;const s=caseSummary(records);
+ records=filterCaseRecords(data.records,filters());limit=25;if(selectedCell){selectedCell=null;highlight.clearLayers();$('case-detail').innerHTML='<h2>Grid filters changed</h2><p>Select a grid cell to inspect its updated matching records.</p>'}const s=caseSummary(records);
+ $('case-status').textContent=s.count.toLocaleString()+' matching records; '+s.within500.toLocaleString()+' within 500 metres of mapped works.';
  $('case-count').textContent=s.count.toLocaleString();$('case-near').textContent=s.within500.toLocaleString();$('case-cell').textContent=s.cells[0]?.count||0;
  const within1000=records.filter(r=>r.band!=='>1,000 m').length;
  $('case-finding').innerHTML=s.count?`<strong>${within1000.toLocaleString()} of ${s.count.toLocaleString()}</strong> matching records (${(within1000/s.count*100).toFixed(1)}%) have application geometry within 1,000 m of a mapped construction line. The highest-count grid cell contains <strong>${s.cells[0]?.count||0}</strong> matching records. These measures describe spatial context, not demand or readiness.`:'No application records match these filters.';
@@ -33,12 +34,14 @@ function update(){
  if(selected&&!records.some(r=>r.id===selected)){selected=null;highlight.clearLayers();$('case-detail').innerHTML='<h2>Selection outside current filters</h2><p>Select another boundary or record to inspect it.</p>'}
  draw();list();
 }
+function focusDetail(){const h=$('case-detail').querySelector('h2');if(h){h.tabIndex=-1;h.focus()}}
 function selectRecord(id){
- const r=byId.get(id),f=featureById.get(id);if(!r||!f)return;selected=id;
+ const r=byId.get(id),f=featureById.get(id);if(!r||!f)return;selected=id;selectedCell=null;
  highlight.clearLayers();const layer=L.geoJSON(f,{style:{color:'#9a5c0b',weight:3,fillColor:'#e9b753',fillOpacity:.3}}).addTo(highlight);map.fitBounds(layer.getBounds(),{maxZoom:16,padding:[35,35]});
  $('case-detail').innerHTML=`<div class="eyebrow">APPLICATION ${esc(r.file)}</div><h2>${esc(r.address||r.file)}</h2><p>${esc(r.type)} · Source status: ${esc(r.status)}</p><div class="detail-measure"><strong>${Math.round(r.distance_m).toLocaleString()} m</strong><br>Minimum straight-line distance to nearest mapped construction line</div><h3>${esc(r.nearest_line_name)}</h3><p>Construction line OBJECTID ${r.nearest_line_id}. This may be only part of a project. The closest published construction line is not necessarily the infrastructure serving this site.</p><p>Grid cell: ${esc(r.grid_id)}. Distances use full original application geometry, not a display marker.</p><div class="evidence-note">Capacity: unknown.<br>Servicing allocation: not established.<br>Application-to-project dependency: not established.</div><p class="case-links"><a href="https://ww8.yorkmaps.ca/arcgis/rest/services/OpenData/DevelopmentApplicationStatusAndTeams/MapServer/0/query?where=${encodeURIComponent('OBJECTID = '+Number(r.id))}&outFields=*&returnGeometry=true&f=pjson" target="_blank" rel="noopener">Original source record ↗</a></p>`;
 }
 function locateCell(id){
+ selected=null;selectedCell=id;highlight.clearLayers();
  const feature=data.grid.features.find(f=>f.properties.id===id);if(!feature)return;
  highlight.clearLayers();const layer=L.geoJSON(feature,{style:{color:'#9a5c0b',weight:3,fillOpacity:.03}}).addTo(highlight);map.fitBounds(layer.getBounds(),{padding:[30,30],maxZoom:15});
  const members=records.filter(r=>r.grid_id===id);
@@ -47,7 +50,7 @@ function locateCell(id){
 async function init(){
  try{
  const response=await fetch('assets/data/vaughan-study.json');if(!response.ok)throw Error('Study data unavailable');data=await response.json();data.records.forEach(r=>byId.set(r.id,r));data.applications.features.forEach(f=>featureById.set(f.properties.id,f));
- map=L.map('case-map',{preferCanvas:true,zoomSnap:.25});L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map);
+ map=L.map('case-map',{preferCanvas:true,zoomSnap:.25});const tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map);let tileError=false;tiles.on('tileerror',()=>{if(!tileError){tileError=true;notice('Basemap unavailable. Analysis layers and record lists remain available.')}});
  const boundary=L.geoJSON(data.boundary,{style:{color:'#26473b',weight:2,fillOpacity:0,interactive:false}}).addTo(map);map.fitBounds(boundary.getBounds(),{padding:[25,25]});
  applications=L.layerGroup().addTo(map);grid=L.layerGroup().addTo(map);highlight=L.layerGroup().addTo(map);
  L.geoJSON(data.construction,{style:{color:'#3274b5',weight:4},onEachFeature:(f,l)=>l.bindPopup(`<strong>${esc(f.properties.name||f.properties.PROJECTNAME)}</strong><br>Published construction geometry; not a service-area boundary.`)}).addTo(map);
@@ -57,7 +60,7 @@ async function init(){
  $('case-fit').onclick=()=>map.fitBounds(boundary.getBounds(),{padding:[25,25]});
  for(const m of ['polygons','grid'])$('case-'+m).onclick=()=>{mode=m;highlight.clearLayers();draw()};
  $('case-more').onclick=()=>{limit+=25;list()};
- document.addEventListener('click',e=>{const r=e.target.closest('[data-record]');if(r)selectRecord(r.dataset.record);const c=e.target.closest('[data-cell]');if(c)locateCell(c.dataset.cell);const b=e.target.closest('[data-band]');if(b){$('case-band').value=$('case-band').value===b.dataset.band?'':b.dataset.band;update()}});
+ document.addEventListener('click',e=>{const r=e.target.closest('[data-record]');if(r){selectRecord(r.dataset.record);if(e.detail===0)focusDetail()}const c=e.target.closest('[data-cell]');if(c){selected=null;locateCell(c.dataset.cell);if(e.detail===0)focusDetail()}const b=e.target.closest('[data-band]');if(b){$('case-band').value=$('case-band').value===b.dataset.band?'':b.dataset.band;update();[...document.querySelectorAll('[data-band]')].find(x=>x.dataset.band===b.dataset.band)?.focus({preventScroll:true})}});
  $('case-snapshot').textContent='Source snapshot: '+data.metadata.snapshot_retrieved_utc.slice(0,10)+' UTC. Analysis CRS: EPSG:26917. '+data.metadata.qa.geometry_repairs.length+' source geometries repaired for analysis.';
  $('case-geojson').onclick=()=>{const features=records.map(r=>{const {representative_point,...properties}=r;return {...featureById.get(r.id),properties}});const blob=new Blob([JSON.stringify({type:'FeatureCollection',features})],{type:'application/geo+json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='growthready-vaughan-filtered.geojson';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
  update();

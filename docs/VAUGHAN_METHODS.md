@@ -64,3 +64,7 @@ An optional argument to `analyse_vaughan.py` selects another directory containin
 Application records are not unique developments, approved dwellings or infrastructure demand. Source `UNITS` is Yes/No and is not used as a dwelling count. Source status is not construction or approval status. The broader explorer retains disagreements between source status fields; this case-study label uses `APPL_STATUS`.
 
 The nearest published construction line may not serve the site. Missing construction, operational infrastructure, elevations, network connectivity, hydraulic modelling, utility allocations and documented project dependencies prevent a servicing or capacity conclusion. Construction completion is not commissioning. No service-area polygons, readiness ranking or cause-of-delay inference is added. Obtain current authoritative project and utility evidence before making development decisions.
+
+## Independent QGIS check for version 1.0
+
+Every Vaughan record was recalculated in QGIS 3.40.6 from hash-matched original inputs. Nearest line IDs, distance bands and grid assignments all agreed; maximum difference from stored rounded distances was 0.000499630 m. See [the QGIS report](QGIS_VALIDATION.md). After regenerating the analysis, rerun that validator before rebuilding the brief; the PDF generator detects a stale committed QGIS report. QGIS and Shapely both use GEOS, so this is an independent computational path rather than a separate geometry kernel or positional-accuracy assessment.
