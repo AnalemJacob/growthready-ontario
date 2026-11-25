@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GrowthReady Ontario — York Region explorer</title>
+  <meta name="description" content="Explore York Region development applications and documented infrastructure evidence. An independent open-data GIS project by Jacob Analem.">
+  <link rel="stylesheet" href="assets/vendor/leaflet.css"><link rel="stylesheet" href="assets/style.css">
+  <script defer src="assets/vendor/leaflet.js"></script><script type="module" src="assets/app.js"></script>
+</head>
+<body>
+<header><a class="brand" href="./"><span class="brand-icon">G<span>↗</span></span><span>GrowthReady<span class="ontario">ONTARIO</span></span></a><div class="pilot">YORK REGION PILOT <span>Research preview</span></div><a class="source-nav" href="https://github.com/AnalemJacob/growthready-ontario/blob/feat/york-region-explorer/docs/PROJECT_BLUEPRINT.md">Project methodology ↗</a></header>
+<section class="intro"><div><div class="eyebrow">GROWTH MEETS INFRASTRUCTURE</div><h1>See the evidence behind growth.</h1><p>Explore development activity alongside water and wastewater infrastructure. Find the connections. See what still needs confirmation.</p></div><div class="snapshot">OPEN DATA SNAPSHOT<span id="snapshot-date">Loading verified records…</span><small>Independent project by Jacob Analem</small></div></section>
+<main>
+<aside class="filters"><div class="panel-title"><h2>Explore the region</h2><button id="reset" class="text-button">Reset</button></div>
+<label for="search">Find an application</label><input id="search" type="search" placeholder="Address, file number or applicant">
+<label for="municipality">Municipality</label><select id="municipality"><option value="">All source areas</option></select>
+<label for="type">Application type</label><select id="type"><option value="">All types</option></select>
+<label for="status">Application status</label><select id="status"><option value="">All source statuses</option></select>
+<label for="evidence">Water service reference</label><select id="evidence"><option value="">All records</option><option value="named">Named service area</option><option value="missing">Missing / “No” reference</option></select>
+<div class="layer-box"><h3>Map layers</h3><label class="check"><input type="checkbox" id="construction" checked> Water & wastewater construction</label><p>36 source features. Features may refer to the same project.</p></div>
+<div class="reading-note"><span class="note-icon">i</span><div><strong>Read the map carefully</strong><p>A service-area reference does not establish spare capacity. Applications are records, not unique developments or approved homes.</p></div></div>
+<div class="result-heading"><h3>Application records</h3><span id="result-total">—</span></div><div id="results" aria-live="polite"></div><button id="more" class="secondary">Show more records</button>
+</aside>
+<section class="workspace" aria-label="Interactive map and application evidence"><div class="metrics"><div><span id="count">—</span><small>APPLICATION RECORDS</small></div><div><span id="water-count">—</span><small>WITH WATER AREA REF.</small></div><div><span id="conflict-count">—</span><small>STATUS DISAGREEMENTS</small></div><div class="unknown"><span>Unknown</span><small>SITE CAPACITY</small></div></div>
+<div class="map-wrap"><div id="map" aria-label="Map of development application display markers"></div><div class="map-label">YORK REGION <span>Development & infrastructure</span></div><button id="fit" class="fit-button">Fit filtered records</button><div class="legend"><span><i class="dot teal"></i> Application</span><span><i class="dot amber"></i> Selected</span><span><i class="dot blue"></i> Construction</span></div></div>
+<div class="below-map"><span>Markers show approximate application extent centres.</span><button id="download" class="text-button">Download filtered CSV ↓</button></div>
+<section id="details" class="details"><div class="eyebrow">APPLICATION EVIDENCE</div><h2>Select a record to investigate</h2><p>Choose an application on the map or in the results list to inspect source statuses, service-area references and the questions to take to a utility.</p></section>
+<section id="comparison" class="comparison" hidden></section>
+</section></main>
+<footer><p>Contains public sector information made available under <a href="https://insights-york.opendata.arcgis.com/documents/york-region-open-data-licence/explore" target="_blank" rel="noopener">The Regional Municipality of York's Open Data Licence</a>. © OpenStreetMap contributors for the basemap.</p><p>Independent portfolio research. Consult York Region and the relevant utility for current development and connection decisions. <a href="https://github.com/AnalemJacob/growthready-ontario">Source code & data audit ↗</a></p></footer>
+<div id="notice" role="status" aria-live="polite"></div>
+</body></html>

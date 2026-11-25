@@ -1,0 +1,7 @@
+data/*.geojson
+data/development_schema.json
+data/water_*.json
+data/legacy_*
+__pycache__/
+node_modules/
+test-results/
