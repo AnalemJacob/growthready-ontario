@@ -1,0 +1,1007 @@
+{
+  "retrieved_at_utc": "2026-11-25T05:16:23.004793+00:00",
+  "source": "https://ww8.yorkmaps.ca/arcgis/rest/services/OpenData/DevelopmentApplicationStatusAndTeams/MapServer/0",
+  "source_editing_info": null,
+  "source_virtual_oid_duplicate_rows": 1,
+  "feature_count": 5482,
+  "features_with_geometry": 5482,
+  "distinct_business_keys": 5482,
+  "duplicate_business_key_rows": 0,
+  "geometry_checks": {
+    "coordinate_reference": "EPSG:4326 requested from source",
+    "invalid_lon_lat_positions": 0,
+    "unclosed_or_short_rings": 0,
+    "bounds": [
+      -79.76098709996364,
+      43.75283925986157,
+      -79.17254251537081,
+      44.35840565268492
+    ],
+    "limitation": "Basic structural checks only; self-intersection, topology, and positional accuracy still require GIS assessment."
+  },
+  "field_profile": {
+    "objectid": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 5482,
+      "common_values": [
+        [
+          "1180",
+          1
+        ],
+        [
+          "1286",
+          1
+        ],
+        [
+          "1438",
+          1
+        ],
+        [
+          "2681",
+          1
+        ],
+        [
+          "106",
+          1
+        ],
+        [
+          "2289",
+          1
+        ],
+        [
+          "1779",
+          1
+        ],
+        [
+          "2714",
+          1
+        ]
+      ]
+    },
+    "APPL_GISID": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 5482,
+      "common_values": [
+        [
+          "12652",
+          1
+        ],
+        [
+          "13869",
+          1
+        ],
+        [
+          "13574",
+          1
+        ],
+        [
+          "13645",
+          1
+        ],
+        [
+          "13804",
+          1
+        ],
+        [
+          "14151",
+          1
+        ],
+        [
+          "14581",
+          1
+        ],
+        [
+          "14254",
+          1
+        ]
+      ]
+    },
+    "APPL_TYPE": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 14,
+      "common_values": [
+        [
+          "Site Plan",
+          1845
+        ],
+        [
+          "Zoning By-law Amendment",
+          767
+        ],
+        [
+          "Minor Variances",
+          679
+        ],
+        [
+          "Consent to Sever",
+          546
+        ],
+        [
+          "Draft Plan of Subdivision",
+          417
+        ],
+        [
+          "Engineering Application",
+          401
+        ],
+        [
+          "Local Official Plan Amendment",
+          399
+        ],
+        [
+          "Draft Plan of Condominium",
+          335
+        ]
+      ]
+    },
+    "APPL_SUBTYPE": {
+      "nonblank_records": 2548,
+      "distinct_nonblank_values": 19,
+      "common_values": [
+        [
+          "Minor",
+          1415
+        ],
+        [
+          "Consent to Sever",
+          455
+        ],
+        [
+          "Major",
+          207
+        ],
+        [
+          "Routine",
+          160
+        ],
+        [
+          "Exemption",
+          126
+        ],
+        [
+          "Approval",
+          88
+        ],
+        [
+          "Consent for Easement",
+          27
+        ],
+        [
+          "Lot Line Adjustment",
+          18
+        ]
+      ]
+    },
+    "APPL_STATUS": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 12,
+      "common_values": [
+        [
+          "In Progress",
+          5196
+        ],
+        [
+          "Appealed",
+          127
+        ],
+        [
+          "On Hold",
+          54
+        ],
+        [
+          "Awaiting Mandatory Docs",
+          34
+        ],
+        [
+          "Awaiting Fees",
+          17
+        ],
+        [
+          "Signed Off",
+          15
+        ],
+        [
+          "Appealed Regional Interests",
+          15
+        ],
+        [
+          "Awaiting External Signature",
+          10
+        ]
+      ]
+    },
+    "APPL_STAGE": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 4,
+      "common_values": [
+        [
+          "Review",
+          2253
+        ],
+        [
+          "Approvals",
+          1402
+        ],
+        [
+          "Finalization",
+          946
+        ],
+        [
+          "Intake",
+          881
+        ]
+      ]
+    },
+    "MUN_NAME": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 10,
+      "common_values": [
+        [
+          "Vaughan",
+          1382
+        ],
+        [
+          "Markham",
+          1236
+        ],
+        [
+          "Richmond Hill",
+          1103
+        ],
+        [
+          "Whitchurch-Stouffville",
+          365
+        ],
+        [
+          "Georgina",
+          313
+        ],
+        [
+          "King",
+          307
+        ],
+        [
+          "Aurora",
+          299
+        ],
+        [
+          "Newmarket",
+          236
+        ]
+      ]
+    },
+    "UNITS": {
+      "nonblank_records": 891,
+      "distinct_nonblank_values": 2,
+      "common_values": [
+        [
+          "Yes",
+          669
+        ],
+        [
+          "No",
+          222
+        ]
+      ]
+    },
+    "DATE_RECVD": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 2770,
+      "common_values": [
+        [
+          "1614056400000",
+          12
+        ],
+        [
+          "1533009600000",
+          11
+        ],
+        [
+          "1270785600000",
+          10
+        ],
+        [
+          "1684814400000",
+          10
+        ],
+        [
+          "1688097600000",
+          9
+        ],
+        [
+          "1666584000000",
+          9
+        ],
+        [
+          "1666670400000",
+          9
+        ],
+        [
+          "1637038800000",
+          9
+        ]
+      ]
+    },
+    "REG_FILE_NUM": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 5466,
+      "common_values": [
+        [
+          "SP.12.K.0032",
+          2
+        ],
+        [
+          "MVAR.24.M.0090",
+          2
+        ],
+        [
+          "SP.17.K.0026",
+          2
+        ],
+        [
+          "SP.16.K.0037",
+          2
+        ],
+        [
+          "SP.18.K.0152",
+          2
+        ],
+        [
+          "MVAR.24.M.0035",
+          2
+        ],
+        [
+          "SP.21.K.0154",
+          2
+        ],
+        [
+          "SP.16.K.0033",
+          2
+        ]
+      ]
+    },
+    "PARENTID": {
+      "nonblank_records": 840,
+      "distinct_nonblank_values": 779,
+      "common_values": [
+        [
+          "a3e0f000000jD2TAAU",
+          5
+        ],
+        [
+          "a3e4R000002tPL0QAM",
+          4
+        ],
+        [
+          "a3e0f000000jDZrAAM",
+          3
+        ],
+        [
+          "a3e0f000000jFPfAAM",
+          3
+        ],
+        [
+          "a3e4R000000AqARQA0",
+          3
+        ],
+        [
+          "a3e0f000000jD19AAE",
+          3
+        ],
+        [
+          "a3e0f000000jBl8AAE",
+          3
+        ],
+        [
+          "a3e0f000000vCfYAAU",
+          2
+        ]
+      ]
+    },
+    "Application_Name__c": {
+      "nonblank_records": 4368,
+      "distinct_nonblank_values": 3411,
+      "common_values": [
+        [
+          "N/A",
+          274
+        ],
+        [
+          "CAP Phase 2",
+          15
+        ],
+        [
+          "Treasure Hill",
+          7
+        ],
+        [
+          "Suncor Energy Inc.",
+          6
+        ],
+        [
+          "Baif Developments Limited",
+          6
+        ],
+        [
+          "The Regional Municipality of York",
+          6
+        ],
+        [
+          "Auto Complex Ltd.",
+          5
+        ],
+        [
+          "York Major Holdings Inc.",
+          5
+        ]
+      ]
+    },
+    "Application_Status__c": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 8,
+      "common_values": [
+        [
+          "In Progress",
+          5088
+        ],
+        [
+          "Appealed",
+          171
+        ],
+        [
+          "On Hold",
+          76
+        ],
+        [
+          "Awaiting Approval",
+          60
+        ],
+        [
+          "Awaiting Mandatory Docs",
+          28
+        ],
+        [
+          "Awaiting Fees",
+          24
+        ],
+        [
+          "Awaiting External Signature",
+          20
+        ],
+        [
+          "Appealed Regional Interests",
+          15
+        ]
+      ]
+    },
+    "Application_Type__c": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 14,
+      "common_values": [
+        [
+          "Site Plan",
+          1847
+        ],
+        [
+          "Zoning By-law Amendment",
+          769
+        ],
+        [
+          "Minor Variances",
+          677
+        ],
+        [
+          "Consent to Sever",
+          546
+        ],
+        [
+          "Draft Plan of Subdivision",
+          417
+        ],
+        [
+          "Engineering Application",
+          399
+        ],
+        [
+          "Local Official Plan Amendment",
+          399
+        ],
+        [
+          "Draft Plan of Condominium",
+          335
+        ]
+      ]
+    },
+    "Application_Subtype__c": {
+      "nonblank_records": 2789,
+      "distinct_nonblank_values": 14,
+      "common_values": [
+        [
+          "Minor",
+          1609
+        ],
+        [
+          "Consent to Sever",
+          473
+        ],
+        [
+          "Approval",
+          397
+        ],
+        [
+          "Major",
+          229
+        ],
+        [
+          "Consent for Easement",
+          27
+        ],
+        [
+          "Lot Line Adjustment",
+          19
+        ],
+        [
+          "Consent for Lease",
+          10
+        ],
+        [
+          "Merge on Title",
+          7
+        ]
+      ]
+    },
+    "Date_Received__c": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 2771,
+      "common_values": [
+        [
+          "1614056400000",
+          12
+        ],
+        [
+          "1533009600000",
+          11
+        ],
+        [
+          "1270785600000",
+          10
+        ],
+        [
+          "1684814400000",
+          10
+        ],
+        [
+          "1688097600000",
+          9
+        ],
+        [
+          "1666584000000",
+          9
+        ],
+        [
+          "1666670400000",
+          9
+        ],
+        [
+          "1637038800000",
+          9
+        ]
+      ]
+    },
+    "Name": {
+      "nonblank_records": 5482,
+      "distinct_nonblank_values": 5481,
+      "common_values": [
+        [
+          "SP.26.V.0131",
+          2
+        ],
+        [
+          "SP.18.M.0097",
+          1
+        ],
+        [
+          "SP.18.A.0125",
+          1
+        ],
+        [
+          "ZBA.18.R.0089",
+          1
+        ],
+        [
+          "MVAR.18.V.0327",
+          1
+        ],
+        [
+          "SP.18.V.0165",
+          1
+        ],
+        [
+          "MVAR.18.R.0392",
+          1
+        ],
+        [
+          "CONS.18.M.0120",
+          1
+        ]
+      ]
+    },
+    "LANDUSE_DESIG": {
+      "nonblank_records": 4521,
+      "distinct_nonblank_values": 29,
+      "common_values": [
+        [
+          "Urban",
+          3276
+        ],
+        [
+          "Towns and Villages",
+          436
+        ],
+        [
+          "Other",
+          395
+        ],
+        [
+          "Urban, Other",
+          92
+        ],
+        [
+          "No",
+          90
+        ],
+        [
+          "Towns and Villages, Other",
+          52
+        ],
+        [
+          "Other, Urban",
+          51
+        ],
+        [
+          "Urban, Urban",
+          37
+        ]
+      ]
+    },
+    "EMPAREA": {
+      "nonblank_records": 4521,
+      "distinct_nonblank_values": 2,
+      "common_values": [
+        [
+          "No",
+          3680
+        ],
+        [
+          "Yes",
+          841
+        ]
+      ]
+    },
+    "GREENBELT": {
+      "nonblank_records": 4521,
+      "distinct_nonblank_values": 2,
+      "common_values": [
+        [
+          "No",
+          4015
+        ],
+        [
+          "Yes",
+          506
+        ]
+      ]
+    },
+    "ORM": {
+      "nonblank_records": 4521,
+      "distinct_nonblank_values": 2,
+      "common_values": [
+        [
+          "No",
+          3519
+        ],
+        [
+          "Yes",
+          1002
+        ]
+      ]
+    },
+    "SIGWETLAND": {
+      "nonblank_records": 4521,
+      "distinct_nonblank_values": 2,
+      "common_values": [
+        [
+          "No",
+          3540
+        ],
+        [
+          "Yes",
+          981
+        ]
+      ]
+    },
+    "SIGWOODLAND": {
+      "nonblank_records": 4521,
+      "distinct_nonblank_values": 2,
+      "common_values": [
+        [
+          "No",
+          2974
+        ],
+        [
+          "Yes",
+          1547
+        ]
+      ]
+    },
+    "SEWERSHED": {
+      "nonblank_records": 4519,
+      "distinct_nonblank_values": 186,
+      "common_values": [
+        [
+          "No",
+          968
+        ],
+        [
+          "Southeast Collector",
+          389
+        ],
+        [
+          "Yonge Street South",
+          196
+        ],
+        [
+          "Yonge Trunk North",
+          167
+        ],
+        [
+          "Maple North",
+          149
+        ],
+        [
+          "Newmarket North",
+          115
+        ],
+        [
+          "Stouffville",
+          107
+        ],
+        [
+          "Highway 404 Trunk",
+          95
+        ]
+      ]
+    },
+    "WSERVAREA": {
+      "nonblank_records": 4521,
+      "distinct_nonblank_values": 18,
+      "common_values": [
+        [
+          "York Water System (Toronto Extension)",
+          2451
+        ],
+        [
+          "No",
+          994
+        ],
+        [
+          "Yonge Street Aquifer Production Wells",
+          283
+        ],
+        [
+          "Yonge Street Aquifer Production Wells and York Wat",
+          190
+        ],
+        [
+          "Stouffville Production Wells",
+          142
+        ],
+        [
+          "King City Production Wells",
+          117
+        ],
+        [
+          "Keswick Water Treatment Plant",
+          112
+        ],
+        [
+          "Sutton Water Treatment Plant",
+          58
+        ]
+      ]
+    },
+    "WWSERVAREA": {
+      "nonblank_records": 4521,
+      "distinct_nonblank_values": 19,
+      "common_values": [
+        [
+          "York-Durham",
+          2952
+        ],
+        [
+          "No",
+          477
+        ],
+        [
+          "York-Peel",
+          398
+        ],
+        [
+          "Georgina",
+          221
+        ],
+        [
+          "Stouffville",
+          147
+        ],
+        [
+          "King City",
+          113
+        ],
+        [
+          "York-Durham (Queensville)",
+          88
+        ],
+        [
+          "Nobleton",
+          35
+        ]
+      ]
+    },
+    "WMAIN": {
+      "nonblank_records": 5379,
+      "distinct_nonblank_values": 2,
+      "common_values": [
+        [
+          "No",
+          4098
+        ],
+        [
+          "Yes",
+          1281
+        ]
+      ]
+    },
+    "WWMAIN": {
+      "nonblank_records": 5381,
+      "distinct_nonblank_values": 2,
+      "common_values": [
+        [
+          "No",
+          4214
+        ],
+        [
+          "Yes",
+          1167
+        ]
+      ]
+    },
+    "WWWCAPPLAN": {
+      "nonblank_records": 4521,
+      "distinct_nonblank_values": 2,
+      "common_values": [
+        [
+          "No",
+          4067
+        ],
+        [
+          "Yes",
+          454
+        ]
+      ]
+    },
+    "WELLPROAREA": {
+      "nonblank_records": 4423,
+      "distinct_nonblank_values": 60,
+      "common_values": [
+        [
+          "No",
+          3789
+        ],
+        [
+          "Newmarket/Aurora WHPA-D",
+          105
+        ],
+        [
+          "Yes",
+          99
+        ],
+        [
+          "Aurora & Newmarket Wells WHPA-D",
+          74
+        ],
+        [
+          "Holland Landing/Queensville WHPA-D",
+          65
+        ],
+        [
+          "Aurora Wells No. 1, 2, 3 & 4 WHPA-B",
+          34
+        ],
+        [
+          "King City Production Wells No. 3 & 4 WHPA-D",
+          32
+        ],
+        [
+          "Kleinburg Well No. 3 WHPA-D",
+          29
+        ]
+      ]
+    },
+    "WHPAQ": {
+      "nonblank_records": 4521,
+      "distinct_nonblank_values": 2,
+      "common_values": [
+        [
+          "Yes",
+          2671
+        ],
+        [
+          "No",
+          1850
+        ]
+      ]
+    },
+    "MOD_DATE": {
+      "nonblank_records": 1136,
+      "distinct_nonblank_values": 900,
+      "common_values": [
+        [
+          "1542588011000",
+          3
+        ],
+        [
+          "1542587975000",
+          3
+        ],
+        [
+          "1542587408000",
+          3
+        ],
+        [
+          "1542588255000",
+          3
+        ],
+        [
+          "1542588249000",
+          3
+        ],
+        [
+          "1542588245000",
+          3
+        ],
+        [
+          "1542588300000",
+          3
+        ],
+        [
+          "1542588315000",
+          3
+        ]
+      ]
+    }
+  },
+  "status_field_disagreements": 245,
+  "interpretation": "UNITS contains Yes/No flags in the inspected sources; it is not a housing-unit count. Service-area references are not available capacity. Application features can overlap and duplicate projects. A missing source edit date must not be replaced by retrieval time.",
+  "supporting_layers": {
+    "municipal_boundaries": {
+      "source": "https://ww8.yorkmaps.ca/arcgis/rest/services/OpenData/Boundary/MapServer/1",
+      "feature_count": 47
+    },
+    "water_wastewater_construction_lines": {
+      "source": "https://ww8.yorkmaps.ca/arcgis/rest/services/OpenData/ActiveConstruction/MapServer/2",
+      "feature_count": 6
+    },
+    "water_wastewater_construction_points": {
+      "source": "https://ww8.yorkmaps.ca/arcgis/rest/services/OpenData/ActiveConstruction/MapServer/3",
+      "feature_count": 30
+    }
+  },
+  "sha256": {
+    "development_applications.geojson": "5f0bd702facb215e605c7fcae965eca3d78e11108fd9a1b3959a0c10a9de21e2",
+    "development_schema.json": "d034abf8151483fe0668ddd7fef2cb142f5aeb401437c53979429c7aea6b0ce2",
+    "municipal_boundaries.geojson": "6e9a08f638c23cc3bfc4eb36df55d116bb9002fc18eb77d6f7a231fc57741001",
+    "water_wastewater_construction_lines.geojson": "132b91228dddbb2fa01aed79af5a82e7eb5eacee02a473fdf1365d7c4ae513e4",
+    "water_wastewater_construction_points.geojson": "06c9c80b7a0c6fa3dd75a2ae72ee635bc52f2e55c9e45f5a16109c1d315a40cb"
+  }
+}
