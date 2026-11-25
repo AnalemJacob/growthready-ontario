@@ -4,6 +4,14 @@
 
 An interactive map connecting development application records with documented water and wastewater infrastructure evidence. Explore **5,482 application records**, filter by municipality/type/source status/service reference, inspect source discrepancies, compare up to three applications, and export filtered CSV records.
 
+## Vaughan spatial case study
+
+Open `vaughan.html` from the running site for original application polygons, minimum-distance bands, a fixed 1 km concentration grid and downloadable analysis. The snapshot contains **1,382 Vaughan application records**; **230** are within 500 m of an included published construction line. These are descriptive screening results, not confirmed infrastructure dependencies or capacity.
+
+- [Methods, results and reproduction](docs/VAUGHAN_METHODS.md)
+- [Three-page mapped brief](output/pdf/GrowthReady_Vaughan_Brief.pdf)
+- [Full record-level CSV](assets/data/vaughan-screening.csv) and filtered original-geometry GeoJSON export on the case-study page.
+
 ## Run locally
 
 Requires Python 3. No frontend build or package installation is needed.
@@ -66,7 +74,7 @@ Serve the repository root on any static host. All app assets and the display sna
 
 ## Next GIS work
 
-Validate application spatial accuracy against a documented sample; retain original application polygon inspection; establish documented application-to-capital-project dependencies; integrate electricity evidence only when data access and permitted reuse are verified. Evaluate real servicing constraints before proposing any readiness score.
+Validate application spatial accuracy against a documented sample; establish documented application-to-capital-project dependencies; integrate electricity evidence only when data access and permitted reuse are verified. Evaluate real servicing constraints before proposing any readiness score.
 
 ## Attribution
 
