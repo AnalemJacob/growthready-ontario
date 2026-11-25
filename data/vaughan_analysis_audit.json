@@ -1,0 +1,109 @@
+{
+  "metadata": {
+    "snapshot_retrieved_utc": "2026-11-25T05:16:23.004793+00:00",
+    "analysis_created_utc": "2026-11-25T07:33:25.291227+00:00",
+    "analysis_crs": "EPSG:26917",
+    "source_crs": "EPSG:4326",
+    "grid_size_m": 1000,
+    "grid_anchor_utm_m": [
+      0,
+      0
+    ],
+    "distance_method": "Minimum Euclidean distance from full application geometry to each published construction line intersecting Vaughan. Not distance to a centric display marker.",
+    "threshold_rule": "Use unrounded distance: <=250; >250 and <=500; >500 and <=1000; >1000 metres. Display distances are rounded to 0.001 m for reproducibility, not positional accuracy.",
+    "grid_method": "One interior representative point per application; fixed projected 1 km cells, not area-weighted. Full cells may extend beyond municipality boundaries.",
+    "source_urls": [
+      "https://ww8.yorkmaps.ca/arcgis/rest/services/OpenData/DevelopmentApplicationStatusAndTeams/MapServer/0",
+      "https://ww8.yorkmaps.ca/arcgis/rest/services/OpenData/ActiveConstruction/MapServer/2",
+      "https://ww8.yorkmaps.ca/arcgis/rest/services/OpenData/Boundary/MapServer/1"
+    ],
+    "source_sha256": {
+      "development_applications.geojson": "5f0bd702facb215e605c7fcae965eca3d78e11108fd9a1b3959a0c10a9de21e2",
+      "water_wastewater_construction_lines.geojson": "132b91228dddbb2fa01aed79af5a82e7eb5eacee02a473fdf1365d7c4ae513e4",
+      "municipal_boundaries.geojson": "6e9a08f638c23cc3bfc4eb36df55d116bb9002fc18eb77d6f7a231fc57741001"
+    },
+    "qa": {
+      "geometry_repairs": [],
+      "representative_points_outside_municipality": [],
+      "all_analysis_geometries_valid": true
+    },
+    "software": {
+      "shapely": "2.2.0",
+      "pyproj": "3.8.0"
+    },
+    "limitations": [
+      "Application records are not unique sites, approved homes or demand.",
+      "Construction inventory is partial; nearest mapped works are not necessarily the nearest operational infrastructure.",
+      "Thresholds are analyst-selected screening distances, not utility standards.",
+      "Dates and status describe the source snapshot, not current approval or commissioning.",
+      "No hydraulic connectivity, spare capacity, site allocation or project dependency established.",
+      "Grid counts depend on cell size, alignment, representation and multiple applications at a location."
+    ]
+  },
+  "summary": {
+    "record_count": 1382,
+    "line_feature_count": 5,
+    "line_name_count": 4,
+    "distance_bands": [
+      {
+        "label": "0\u2013250 m",
+        "count": 191
+      },
+      {
+        "label": ">250\u2013500 m",
+        "count": 39
+      },
+      {
+        "label": ">500\u20131,000 m",
+        "count": 93
+      },
+      {
+        "label": ">1,000 m",
+        "count": 1059
+      }
+    ],
+    "within_250m": 191,
+    "within_500m": 230,
+    "within_1000m": 323,
+    "grid_cell_count": 227,
+    "largest_grid_count": 43,
+    "top_grid_cells": [
+      {
+        "id": "618:4849",
+        "count": 43
+      },
+      {
+        "id": "618:4850",
+        "count": 38
+      },
+      {
+        "id": "615:4855",
+        "count": 31
+      },
+      {
+        "id": "613:4850",
+        "count": 30
+      },
+      {
+        "id": "619:4856",
+        "count": 26
+      }
+    ],
+    "types": {
+      "Site Plan": 490,
+      "Draft Plan of Condominium": 98,
+      "Draft Plan of Subdivision": 119,
+      "Zoning By-law Amendment": 164,
+      "Minor Variances": 175,
+      "Local Official Plan Amendment": 131,
+      "Engineering Application": 108,
+      "Consent to Sever": 71,
+      "Registered Plan of Condominium": 8,
+      "Registered Plan of Subdivision": 7,
+      "Block Plan": 10,
+      "Provincial Application": 1
+    },
+    "median_distance_m": 1988.9875000000002
+  },
+  "display_sha256": "d31daf14e0a504c16ef085cc19c37ffe2fada893b31c2cb5584e22c8fe8fc4f5"
+}

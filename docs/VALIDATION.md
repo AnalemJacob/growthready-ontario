@@ -23,3 +23,11 @@ Install the optional development dependency with `npm install --no-save --packag
 ## Infrastructure and map update
 
 Four additional automated tests validate official project provenance/date precision, municipality/sector filters, construction geometry-class plus ID matching, and separation of cluster count labels. Browser checks include project-year selection, municipality linkage, sector selection and locating mapped works. The opening view fits application locations with fractional zoom, and grid count labels have a maximum 48-pixel diameter in 54-pixel cells.
+
+## Vaughan spatial case study
+
+The complete suite now has 16 passing Node tests. Four case-study tests verify the derived file against its audit hash, reconcile the 1,382 Vaughan IDs to the regional snapshot, check geometry-repair/outside-point audit flags, reconcile the five included construction line IDs and four distance bands, reconcile all grid assignments (227 occupied cells, maximum 43 records), and exercise combined filters and empty summaries.
+
+Desktop and 390 px mobile browser checks additionally cover both case-study map modes, distance filtering, empty results/reset, grid-cell and application details, GeoJSON and PDF downloads, and horizontal overflow. Screenshots and uncaught-page-error checks are included in `tests/browser-smoke.cjs`. As with the regional explorer, external basemap tiles were unavailable in the isolated test environment; application and analysis vector layers rendered.
+
+The three-page PDF was rendered and visually checked for legibility, map extents, tables, source links and page overflow. Python scripts compile. See [Vaughan methods](VAUGHAN_METHODS.md) for the projected distance method, threshold sensitivity, snapshot results and interpretation limits. Source application geometry is retained for display; validity and representative-point checks do not certify positional accuracy.
