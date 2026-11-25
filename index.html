@@ -4,8 +4,8 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GrowthReady Ontario — York Region growth & infrastructure</title>
 <meta name="description" content="Compare York Region development activity and infrastructure evidence in an independent open-data GIS project by Jacob Analem.">
-<link rel="stylesheet" href="assets/vendor/leaflet.css"><link rel="stylesheet" href="assets/style.css?v=2">
-<script defer src="assets/vendor/leaflet.js"></script><script type="module" src="assets/app.js?v=2"></script>
+<link rel="stylesheet" href="assets/vendor/leaflet.css"><link rel="stylesheet" href="assets/style.css?v=3">
+<script defer src="assets/vendor/leaflet.js"></script><script type="module" src="assets/app.js?v=3"></script>
 </head>
 <body>
 <a class="skip" href="#map-controls">Skip to map controls</a>
@@ -29,6 +29,7 @@
 <div id="map-controls" class="map-toolbar"><div class="segmented" role="group" aria-label="Map display"><button id="mode-applications" aria-pressed="true">Applications</button><button id="mode-municipalities" aria-pressed="false">Municipality comparison</button></div><button id="fit" class="secondary">Fit results</button></div>
 <div class="map-wrap"><div id="map" aria-label="Interactive York Region map"></div><div class="map-label">YORK REGION <span id="map-subtitle">Application clusters · click to explore</span></div><div id="map-legend" class="legend"></div></div>
 <div class="below-map"><span id="map-caption">Cluster labels count application records. Individual markers are approximate extent centres.</span><button id="download" class="text-button">Export CSV ↓</button></div>
+<section class="infrastructure" aria-labelledby="infrastructure-title"><div class="eyebrow">DOCUMENTED INFRASTRUCTURE</div><div class="project-heading"><h2 id="infrastructure-title">What is being built, and when?</h2><label for="project-sector">Project sector<select id="project-sector"><option value="">All sectors</option><option value="Water">Water</option><option value="Wastewater">Wastewater</option><option value="Not specified">Not specified</option></select></label></div><p class="micro">Selected official projects, grouped by published completion year. Municipality filters apply; application type, status, date and search filters do not. This is regional context, not a confirmed connection to an application.</p><p id="project-context" aria-live="polite"></p><div id="project-years" class="project-years" aria-label="Published project completion years"></div><div id="project-list" class="project-list"></div><p id="project-checked" class="micro"></p></section>
 <div class="analysis-intro"><div class="eyebrow">WHAT THE FILTERED SNAPSHOT SHOWS</div><p id="finding" aria-live="polite">Preparing linked summaries…</p><p class="micro">All charts follow the filters. Select a bar to narrow the map. Counts describe source application records, not homes, unique developments or infrastructure demand.</p></div>
 <div class="charts"><section class="chart-card"><div class="chart-heading"><h2>Municipality comparison</h2><button class="text-button chart-clear" data-clear="municipality">Clear</button></div><p class="chart-subtitle">Application records by source municipality</p><div id="municipality-chart"></div></section>
 <section class="chart-card"><div class="chart-heading"><h2>Application types</h2><button class="text-button chart-clear" data-clear="type">Clear</button></div><p class="chart-subtitle">Different processes may concern the same development</p><div id="type-chart"></div></section>

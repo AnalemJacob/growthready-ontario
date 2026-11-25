@@ -50,7 +50,22 @@ export function clusterRecords(rows, zoom) {
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(r);
   }
-  return [...groups.values()].map(members=>({members,lat:members.reduce((s,r)=>s+r.lat,0)/members.length,lng:members.reduce((s,r)=>s+r.lng,0)/members.length}));
+  // Place count labels at grid-cell centres so adjacent labels cannot collide.
+  // Individual application markers still use their original display coordinates.
+  return [...groups].map(([key,members])=>{
+    const [col,row]=key.split(':').map(Number),x=(col+.5)*cell,y=(row+.5)*cell;
+    const lat=Math.atan(Math.sinh(Math.PI*(1-2*y/scale)))*180/Math.PI;
+    return {members,lat,lng:x/scale*360-180};
+  });
+}
+export function filterProjects(projects, municipality='', sector='') {
+  return projects.filter(p=>(!municipality || p.municipality===municipality) &&
+    (!sector || p.sector===sector || (['Water','Wastewater'].includes(sector) && p.sector==='Water & wastewater')))
+    .sort((a,b)=>(a.completion_year??Infinity)-(b.completion_year??Infinity)||a.title.localeCompare(b.title));
+}
+export function projectFeatures(project, features) {
+  return features.filter(f=>(project.geometry_refs||[]).some(ref=>
+    ref.objectid===f.properties.OBJECTID && ref.geometry_class===(f.geometry.type==='Point'?'point':'line')));
 }
 export function csv(rows) {
   const fields = ['OBJECTID','REG_FILE_NUM','MUN_NAME','ADDRESS','APPL_TYPE','APPL_STATUS','Application_Status__c','WSERVAREA','WWSERVAREA'];
