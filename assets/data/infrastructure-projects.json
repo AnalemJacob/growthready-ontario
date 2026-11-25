@@ -1,0 +1,150 @@
+{
+  "checked_at_utc": "2026-11-25T07:03:03.548446+00:00",
+  "coverage": "Selected projects from official York pages; not an exhaustive inventory.",
+  "timing_note": "Published expected completion, not verified commissioning. Dates are retained at their source precision.",
+  "projects": [
+    {
+      "id": "sharon-trunk",
+      "title": "Sharon sewer retrofit",
+      "municipality": "East Gwillimbury",
+      "sector": "Wastewater",
+      "purpose": "Capacity / flow improvement",
+      "published_completion": "Spring 2027",
+      "completion_year": 2027,
+      "date_precision": "season",
+      "summary": "Improves performance during high wastewater flows.",
+      "source_section": "Sharon Trunk Sewer",
+      "source_url": "https://www.york.ca/environment/water-and-wastewater/water-and-wastewater-construction-projects",
+      "geometry_refs": [],
+      "application_dependency": "Not established",
+      "commissioned": "Not verified"
+    },
+    {
+      "id": "mount-albert",
+      "title": "Mount Albert facilities",
+      "municipality": "East Gwillimbury",
+      "sector": "Water & wastewater",
+      "purpose": "Capacity / flow improvement",
+      "published_completion": "Spring 2026",
+      "completion_year": 2026,
+      "date_precision": "season",
+      "summary": "Renews facilities and increases servicing capacity.",
+      "source_section": "Mount Albert Water and Wastewater Facilities",
+      "source_url": "https://www.york.ca/environment/water-and-wastewater/water-and-wastewater-construction-projects",
+      "geometry_refs": [],
+      "application_dependency": "Not established",
+      "commissioned": "Not verified"
+    },
+    {
+      "id": "king-tank",
+      "title": "King City elevated tank",
+      "municipality": "King",
+      "sector": "Water",
+      "purpose": "Renewal / reliability",
+      "published_completion": "Spring 2027",
+      "completion_year": 2027,
+      "date_precision": "season",
+      "summary": "Upgrades an existing water-storage asset.",
+      "source_section": "King City Fisher Elevated Tank",
+      "source_url": "https://www.york.ca/environment/water-and-wastewater/water-and-wastewater-construction-projects",
+      "geometry_refs": [],
+      "application_dependency": "Not established",
+      "commissioned": "Not verified"
+    },
+    {
+      "id": "leslie-sps",
+      "title": "Leslie Street pumping upgrades",
+      "municipality": "Markham",
+      "sector": "Wastewater",
+      "purpose": "Renewal / reliability",
+      "published_completion": "Fall 2027",
+      "completion_year": 2027,
+      "date_precision": "season",
+      "summary": "Renews station equipment and electrical infrastructure.",
+      "source_section": "Leslie Street Sewage Pumping Station Upgrades",
+      "source_url": "https://www.york.ca/environment/water-and-wastewater/water-and-wastewater-construction-projects",
+      "geometry_refs": [],
+      "application_dependency": "Not established",
+      "commissioned": "Not verified"
+    },
+    {
+      "id": "markham-hwy7",
+      "title": "Markham Highway 7 watermain",
+      "municipality": "Markham",
+      "sector": "Water",
+      "purpose": "Renewal / reliability",
+      "published_completion": "2028",
+      "completion_year": 2028,
+      "date_precision": "year",
+      "summary": "Replaces and rehabilitates an existing watermain.",
+      "source_section": "Markham Highway 7 Watermain Rehabilitation",
+      "source_url": "https://www.york.ca/environment/water-and-wastewater/water-and-wastewater-construction-projects",
+      "geometry_refs": [
+        {
+          "geometry_class": "line",
+          "objectid": 6
+        }
+      ],
+      "application_dependency": "Not established",
+      "commissioned": "Not verified"
+    },
+    {
+      "id": "glenway",
+      "title": "Glenway facility renewal",
+      "municipality": "Newmarket",
+      "sector": "Not specified",
+      "purpose": "Renewal / reliability",
+      "published_completion": "Fall 2026",
+      "completion_year": 2026,
+      "date_precision": "season",
+      "summary": "Rehabilitates the existing facility.",
+      "source_section": "Newmarket Glenway Facility",
+      "source_url": "https://www.york.ca/environment/water-and-wastewater/water-and-wastewater-construction-projects",
+      "geometry_refs": [],
+      "application_dependency": "Not established",
+      "commissioned": "Not verified"
+    },
+    {
+      "id": "northeast-water",
+      "title": "Northeast Vaughan water, phase 1",
+      "municipality": "Vaughan",
+      "sector": "Water",
+      "purpose": "New servicing infrastructure",
+      "published_completion": "Fall 2026",
+      "completion_year": 2026,
+      "date_precision": "season",
+      "summary": "Adds water infrastructure for northeast Vaughan.",
+      "source_section": "Northeast Vaughan Water - Phase One",
+      "source_url": "https://www.york.ca/environment/water-and-wastewater/water-and-wastewater-construction-projects",
+      "geometry_refs": [],
+      "application_dependency": "Not established",
+      "commissioned": "Not verified"
+    },
+    {
+      "id": "west-vaughan",
+      "title": "West Vaughan sewage project",
+      "municipality": "Vaughan",
+      "sector": "Wastewater",
+      "purpose": "New servicing infrastructure",
+      "published_completion": "Fall 2029",
+      "completion_year": 2029,
+      "date_precision": "season",
+      "summary": "Provides new wastewater infrastructure supporting west Vaughan growth.",
+      "source_section": "West Vaughan Sewage Servicing Project",
+      "source_url": "https://www.york.ca/westvaughan",
+      "geometry_refs": [
+        {
+          "geometry_class": "line",
+          "objectid": 2
+        },
+        {
+          "geometry_class": "line",
+          "objectid": 3
+        }
+      ],
+      "published_start": "August 2024",
+      "application_dependency": "Not established",
+      "commissioned": "Not verified"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 ## Automated checks
 
-Eight Node tests pass: source snapshot consistency; named/missing references; combined filters; CSV safety; grouped totals; UTC received-year/range semantics and date-bucket totals; deterministic map clustering without omitted/duplicated records; and municipal display boundaries/audit. JavaScript syntax and Python compilation also pass.
+Twelve Node tests pass: source snapshot consistency; named/missing references; combined filters; CSV safety; grouped totals; UTC received-year/range semantics and date-bucket totals; deterministic map clustering without omitted/duplicated records; and municipal display boundaries/audit. JavaScript syntax and Python compilation also pass.
 
 Boundary transformation uses Shapely 2.2.0. All 18 source and simplified geometry components passed individual validity checks; no shared-edge topology or positional accuracy certification is claimed. Counts use the source municipality field.
 
@@ -19,3 +19,7 @@ Municipalities are administrative boundaries, not service areas. No service-area
 ## Repeat browser checks
 
 Install the optional development dependency with `npm install --no-save --package-lock=false playwright`, then run `npx playwright install chromium` and `node tests/browser-smoke.cjs`. Alternatively set `BROWSER_EXECUTABLE` to an installed compatible Chromium executable. The script starts and closes its own local server, and saves screenshots in the ignored `test-results/` directory. The public frontend needs neither this dependency nor an installation step.
+
+## Infrastructure and map update
+
+Four additional automated tests validate official project provenance/date precision, municipality/sector filters, construction geometry-class plus ID matching, and separation of cluster count labels. Browser checks include project-year selection, municipality linkage, sector selection and locating mapped works. The opening view fits application locations with fractional zoom, and grid count labels have a maximum 48-pixel diameter in 54-pixel cells.

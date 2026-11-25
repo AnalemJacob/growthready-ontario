@@ -55,3 +55,35 @@ test('municipal display boundaries match their audit and include nine named muni
  assert.ok(audit.features.every(f=>f.source_valid&&f.display_valid&&f.relative_area_change<=0.005));
  assert.ok(data.features.every(f=>['Polygon','MultiPolygon'].includes(f.geometry.type)));
 });
+
+import {filterProjects,projectFeatures} from '../assets/model.js';
+const projectData=JSON.parse(readFileSync(new URL('../assets/data/infrastructure-projects.json',import.meta.url)));
+test('curated project records retain official provenance, date precision and unknown commissioning',()=>{
+ assert.equal(projectData.projects.length,8);assert.equal(new Set(projectData.projects.map(p=>p.id)).size,8);
+ for(const p of projectData.projects){
+  assert.equal(new URL(p.source_url).hostname,'www.york.ca');assert.ok(p.source_section);
+  assert.ok(p.published_completion.includes(String(p.completion_year)));
+  assert.ok(['season','year'].includes(p.date_precision));
+  assert.equal(p.application_dependency,'Not established');assert.equal(p.commissioned,'Not verified');
+ }
+});
+test('project filters distinguish municipality context and combined water/wastewater sectors',()=>{
+ const ps=projectData.projects;
+ assert.equal(filterProjects(ps,'Markham').length,2);
+ assert.equal(filterProjects(ps,'Aurora').length,0);
+ assert.equal(filterProjects(ps,'','Not specified').length,1);
+ assert.ok(filterProjects(ps,'','Water').every(p=>['Water','Water & wastewater'].includes(p.sector)));
+ assert.ok(filterProjects(ps,'','Wastewater').every(p=>['Wastewater','Water & wastewater'].includes(p.sector)));
+});
+test('project-map references use geometry class and source ID, avoiding point/line ID collisions',()=>{
+ const features=JSON.parse(readFileSync(new URL('../assets/data/snapshot.json',import.meta.url))).construction;
+ const west=projectData.projects.find(p=>p.id==='west-vaughan');const mapped=projectFeatures(west,features);
+ assert.equal(mapped.length,2);assert.ok(mapped.every(f=>f.geometry.type==='LineString'&&f.properties.PROJECTNAME==='West Vaughan Sewage Servicing'));
+ assert.equal(projectFeatures(projectData.projects.find(p=>p.id==='glenway'),features).length,0);
+});
+test('cluster-count labels are separated by at least one screen grid cell',()=>{
+ const z=9.5,scale=256*2**z;
+ const px=g=>[(g.lng+180)/360*scale,(.5-Math.log((1+Math.sin(g.lat*Math.PI/180))/(1-Math.sin(g.lat*Math.PI/180)))/(4*Math.PI))*scale];
+ const groups=clusterRecords(rows,z).filter(g=>g.members.length>1).map(px);
+ for(let i=0;i<groups.length;i++)for(let j=i+1;j<groups.length;j++)assert.ok(Math.hypot(groups[i][0]-groups[j][0],groups[i][1]-groups[j][1])>=53.99);
+});

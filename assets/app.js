@@ -1,4 +1,4 @@
-import {named,statusConflict,filterRecords,csv,aggregate,receivedYear,receiptBuckets,clusterRecords} from './model.js?v=2';
+import {named,statusConflict,filterRecords,csv,aggregate,receivedYear,receiptBuckets,clusterRecords,filterProjects,projectFeatures} from './model.js?v=3';
 const $=id=>document.getElementById(id);
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const value=s=>escape(s||'Not recorded');
@@ -8,6 +8,7 @@ const filterIds=['search','municipality','type','status','evidence','year'];
 const yorkNames=new Set(['Aurora','East Gwillimbury','Georgina','King','Markham','Newmarket','Richmond Hill','Vaughan','Whitchurch-Stouffville']);
 let rows=[],filtered=[],selected=null,limit=30,map,markers,construction,selection,boundaries,mode='applications';
 const comparison=new Set();
+let projects=[],projectMetadata=null,constructionFeatures=[],projectHighlight,projectYear='';
 const filters=()=>Object.fromEntries(filterIds.map(id=>[id,$(id).value]));
 let noticeTimer;
 function notify(text){clearTimeout(noticeTimer);$('notice').textContent=text;$('notice').style.display='block';noticeTimer=setTimeout(()=>$('notice').style.display='none',4500)}
@@ -62,13 +63,15 @@ function update(){
  const conflicts=filtered.filter(r=>statusConflict(r.properties)).length;
  $('conflict-count').textContent=conflicts.toLocaleString();$('quality-summary').textContent=`${conflicts.toLocaleString()} filtered records with source status disagreements`;
  if(selected&&!filtered.some(r=>r.id===selected)){selected=null;selection.clearLayers();$('details').innerHTML='<div class="eyebrow">APPLICATION EVIDENCE</div><h2>Select a record to investigate</h2><p>The previous selection is outside these filters. Choose another record. Your comparison is retained below.</p>'}
- drawMap();list();renderAnalytics();
+ drawMap();list();renderAnalytics();renderProjects();
 }
 function select(id){
  const r=rows.find(r=>r.id===id);if(!r)return;selected=id;const p=r.properties;
  selection.clearLayers();L.circleMarker([r.lat,r.lng],{radius:9,weight:3,color:'#7b521e',fillColor:'#f3b44f',fillOpacity:1}).addTo(selection);
  map.panTo([r.lat,r.lng]); if(mode==='municipalities'){mode='applications';drawMap();}
  $('details').innerHTML=`<div class="eyebrow">APPLICATION EVIDENCE · ${value(p.REG_FILE_NUM)}</div><div class="detail-head"><div><h2>${value(p.ADDRESS||p.APPL_NAME)}</h2><span class="badge">${value(p.MUN_NAME)}</span><span class="badge">${value(p.APPL_TYPE)}</span><span class="badge">${value(p.APPL_STATUS)}</span></div><button id="compare-add" class="secondary">${comparison.has(id)?'Remove from comparison':'Compare this record'}</button></div><p>${value(p.APPL_DESC)}</p><div class="detail-meta">Applicant: ${value(p.APPL_NAME)}<br>Received (source date): ${p.DATE_RECVD?escape(new Date(p.DATE_RECVD).toISOString().slice(0,10)):'Not recorded'} · Stage: ${value(p.APPL_STAGE)}</div>${statusConflict(p)?`<p class="warning">Source fields disagree: APPL_STATUS = “${value(p.APPL_STATUS)}”; Application_Status__c = “${value(p.Application_Status__c)}”. Confirm the current status with York Region.</p>`:''}<div class="evidence-grid"><div class="evidence-card"><h3>WATER SERVICE REFERENCE</h3><strong>${named(p.WSERVAREA)?value(p.WSERVAREA):'No named reference'}</strong><p>Recorded service area only. Available capacity and site allocation are unknown.</p></div><div class="evidence-card"><h3>WASTEWATER REFERENCE</h3><strong>${named(p.WWSERVAREA)?value(p.WWSERVAREA):'No named reference'}</strong><p>Sewershed: ${value(p.SEWERSHED)}. Confirm servicing and project dependencies with the Region.</p><a href="${waterSource}" target="_blank" rel="noopener">Regional construction evidence ↗</a></div><div class="evidence-card"><h3>ELECTRICITY CAPACITY</h3><strong>Unknown</strong><p>No verified site-level electricity capacity has been ingested.</p><a href="https://www.oeb.ca/ontarios-energy-sector/centralized-capacity-information-map" target="_blank" rel="noopener">OEB capacity map information ↗</a></div></div><p class="detail-meta">Source OBJECTID ${value(p.OBJECTID)} · Display marker is the application bounding-box centre.<br><a target="_blank" rel="noopener" href="${source}/query?where=${encodeURIComponent('OBJECTID = '+Number(p.OBJECTID))}&outFields=*&returnGeometry=false&f=pjson">View this source record ↗</a></p>`;
+ const contextual=filterProjects(projects,p.MUN_NAME);
+ if(contextual.length)$('details').insertAdjacentHTML('beforeend',`<div class="evidence-note"><strong>Published projects in ${value(p.MUN_NAME)}</strong><p>${contextual.length} selected project records provide municipality context. A dependency for this application is not established.</p><a href="#infrastructure-title">Explore project timeline ↓</a></div>`);
  $('compare-add').onclick=()=>{if(comparison.has(id))comparison.delete(id);else if(comparison.size<3)comparison.add(id);else return notify('Compare up to three records. Remove one to add another.');renderComparison();select(id)};
  list();
 }
@@ -78,22 +81,44 @@ function renderComparison(){
  $('comparison').innerHTML=`<div class="panel-title"><h2>Compare application evidence</h2><button id="clear-compare" class="text-button">Clear comparison</button></div><p class="detail-meta">Selections stay in this comparison when map filters change.</p><table><thead><tr><th scope="col">Source field</th>${records.map(r=>`<th scope="col">${value(r.properties.REG_FILE_NUM)}</th>`).join('')}</tr></thead><tbody>${fields.map(([label,f])=>`<tr><th scope="row">${label}</th>${records.map(r=>`<td>${value(r.properties[f])}</td>`).join('')}</tr>`).join('')}<tr><th scope="row">Confirmed site capacity</th>${records.map(()=>'<td>Unknown</td>').join('')}</tr></tbody></table>`;
  if(records.length)$('clear-compare').onclick=()=>{comparison.clear();renderComparison();if(selected)select(selected)};
 }
+function renderProjects(){
+ if(!projectMetadata)return;
+ const subset=filterProjects(projects,$('municipality').value,$('project-sector').value);
+ const years=[...new Set(subset.map(p=>p.completion_year))].sort();
+ if(projectYear&&!years.includes(Number(projectYear)))projectYear='';
+ $('project-context').textContent=subset.length+' selected projects'+($('municipality').value?' listed for '+$('municipality').value:' across the pilot')+'. Published dates are forecasts; commissioning is unverified.';
+ $('project-years').innerHTML=years.map(year=>`<button data-project-year="${year}" aria-pressed="${projectYear===String(year)}"><strong>${year}</strong><span>${subset.filter(p=>p.completion_year===year).length} ${subset.filter(p=>p.completion_year===year).length===1?'project':'projects'}</span></button>`).join('');
+ const visible=subset.filter(p=>!projectYear||p.completion_year===Number(projectYear));
+ $('project-list').innerHTML=visible.map(p=>`<article class="project-card"><div class="project-meta">${value(p.municipality)} · ${value(p.sector)}</div><h3>${value(p.title)}</h3><span class="purpose">${value(p.purpose)}</span><p>${value(p.summary)}</p><div class="project-date">Published completion: <strong>${value(p.published_completion)}</strong></div><p class="micro">Completion / commissioning not verified. Application dependency not established.</p><div class="project-actions"><a href="${escape(p.source_url)}" target="_blank" rel="noopener">Official source ↗</a>${p.geometry_refs.length?`<button class="text-button" data-locate-project="${p.id}">Locate mapped works ↑</button>`:''}</div><details><summary>Source section & evidence</summary><p class="micro">Find “${value(p.source_section)}” on the linked page. ${p.published_start?'Published start: '+value(p.published_start)+'. ':''}Timing is retained at ${value(p.date_precision)} precision. Mapped works, where available, are source construction features and may show only part of a project.</p></details></article>`).join('')||'<p class="empty">No projects in this selected evidence set match the municipality and sector. This does not mean there are no infrastructure works in that area.</p>';
+ $('project-checked').textContent='Official pages checked '+new Date(projectMetadata.checked_at_utc).toISOString().slice(0,10)+' UTC. Selected evidence set, not a complete capital-program inventory.';
+}
+function locateProject(id){
+ const project=projects.find(p=>p.id===id);if(!project)return;
+ const features=projectFeatures(project,constructionFeatures);if(!features.length)return notify('Mapped source geometry is unavailable for this project.');
+ projectHighlight.clearLayers();
+ const layer=L.geoJSON({type:'FeatureCollection',features},{style:{color:'#b76d17',weight:7,opacity:.9}}).addTo(projectHighlight);
+ map.fitBounds(layer.getBounds(),{padding:[40,40],maxZoom:14});
+ $('map').scrollIntoView({behavior:'smooth',block:'center'});
+ notify('Highlighted mapped works for '+project.title+'. This is not a service-area boundary.');
+}
 async function init(){
  try{
   if(!window.L)throw Error('The local map library did not load.');
   const response=await fetch('assets/data/snapshot.json');if(!response.ok)throw Error('Snapshot could not be loaded.');
   const data=await response.json();rows=data.applications;
   $('snapshot-date').textContent=new Date(data.retrieved).toLocaleDateString('en-CA',{year:'numeric',month:'short',day:'numeric',timeZone:'UTC'})+' · '+rows.length.toLocaleString()+' records';
-  map=L.map('map',{zoomControl:false,preferCanvas:true}).setView([44.035,-79.46],9);L.control.zoom({position:'topright'}).addTo(map);
+  map=L.map('map',{zoomControl:false,preferCanvas:true,zoomSnap:.25,zoomDelta:.5}).setView([44.035,-79.46],9.5);L.control.zoom({position:'topright'}).addTo(map);
   const tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
   let tileError=false;tiles.on('tileerror',()=>{if(!tileError){tileError=true;notify('Basemap unavailable. Application and construction layers remain available.')}});
   map.createPane('municipalities');map.getPane('municipalities').style.zIndex=350;
-  markers=L.layerGroup().addTo(map);selection=L.layerGroup().addTo(map);
+  markers=L.layerGroup().addTo(map);selection=L.layerGroup().addTo(map);projectHighlight=L.layerGroup().addTo(map);constructionFeatures=data.construction;
   construction=L.geoJSON({type:'FeatureCollection',features:data.construction},{style:{color:'#4079b4',weight:4},pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:6,color:'#fff',weight:2,fillColor:'#4079b4',fillOpacity:1}),onEachFeature:(f,layer)=>{const p=f.properties;layer.bindPopup(`<strong>${value(p.PROJECTNAME)}</strong><br>${value(p.LOCATION)}<br>${value(p.PROJECTCATEGORY)} · ${value(p.STATUS)}<br><a href="${waterSource}" target="_blank" rel="noopener">Official construction projects ↗</a><br><small>Location does not establish an application dependency. This layer is not filtered.</small>`)}}).addTo(map);
   try{
    const boundaryResponse=await fetch('assets/data/municipalities.geojson');if(!boundaryResponse.ok)throw Error('Boundary request failed');const geojson=await boundaryResponse.json();
-   boundaries=L.geoJSON(geojson,{pane:'municipalities',style:boundaryStyle,onEachFeature:(f,layer)=>{layer.bindTooltip(escape(f.properties.NAME));layer.on('click',()=>{$('municipality').value=f.properties.NAME;update()})}}).addTo(map);map.fitBounds(boundaries.getBounds(),{padding:[20,20]});
+   boundaries=L.geoJSON(geojson,{pane:'municipalities',style:boundaryStyle,onEachFeature:(f,layer)=>{layer.bindTooltip(escape(f.properties.NAME));layer.on('click',()=>{$('municipality').value=f.properties.NAME;update()})}}).addTo(map);map.invalidateSize();map.fitBounds(rows.map(r=>[r.lat,r.lng]),{padding:[55,55],maxZoom:11,animate:false});
   }catch(error){$('mode-municipalities').disabled=true;notify('Municipality boundaries unavailable. Application analytics remain available.');console.warn(error.message)}
+  try {const r=await fetch('assets/data/infrastructure-projects.json');if(!r.ok)throw Error('Project evidence could not be loaded');projectMetadata=await r.json();projects=projectMetadata.projects;}catch(error){$('project-list').innerHTML='<p class="empty">Project evidence unavailable. <a href="'+waterSource+'" target="_blank" rel="noopener">Consult York’s official project page ↗</a></p>';console.warn(error.message)}
+  $('project-sector').onchange=()=>{projectYear='';projectHighlight.clearLayers();renderProjects()};
   fill('municipality','MUN_NAME');fill('type','APPL_TYPE');fill('status','APPL_STATUS');
   [...new Set(rows.map(r=>receivedYear(r.properties.DATE_RECVD)).filter(y=>y!==null))].sort((a,b)=>b-a).forEach(y=>{const option=document.createElement('option');option.value=String(y);option.textContent=String(y);$('year').append(option)});
   for(const [v,label] of [['2027:9999','2027 onward'],['undated','Undated']]){const option=document.createElement('option');option.value=v;option.textContent=label;$('year').append(option)}
@@ -103,17 +128,20 @@ async function init(){
   $('results').onclick=e=>{const button=e.target.closest('[data-id]');if(button)select(button.dataset.id)};
   document.addEventListener('click',e=>{
    const bar=e.target.closest('[data-filter]');if(bar){const id=bar.dataset.filter;$(id).value=$(id).value===bar.dataset.value?'':bar.dataset.value;update()}
+   const year=e.target.closest('[data-project-year]');if(year){projectYear=projectYear===year.dataset.projectYear?'':year.dataset.projectYear;renderProjects()}
+   const locate=e.target.closest('[data-locate-project]');if(locate)locateProject(locate.dataset.locateProject);
    const clear=e.target.closest('[data-clear]');if(clear){$(clear.dataset.clear).value='';update()}
    const record=e.target.closest('.cluster-record');if(record){map.closePopup();select(record.dataset.id)}
   });
   $('more').onclick=()=>{limit+=30;list()};
-  $('reset').onclick=()=>{clearTimeout(timer);for(const id of filterIds)$(id).value='';update()};
+  $('reset').onclick=()=>{clearTimeout(timer);for(const id of filterIds)$(id).value='';$('project-sector').value='';projectYear='';projectHighlight.clearLayers();update()};
   $('construction').onchange=e=>e.target.checked?construction.addTo(map):map.removeLayer(construction);
   $('fit').onclick=()=>{if(filtered.length)map.fitBounds(filtered.map(r=>[r.lat,r.lng]),{padding:[35,35],maxZoom:15});else notify('No records match the current filters.')};
   for(const display of ['applications','municipalities'])$('mode-'+display).onclick=()=>{mode=display;drawMap()};
   map.on('zoomend',drawMap);
   $('download').onclick=()=>{const blob=new Blob(['\ufeff'+csv(filtered)],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='growthready-filtered-applications.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
   update();
+  requestAnimationFrame(()=>{map.invalidateSize();map.fitBounds(rows.map(r=>[r.lat,r.lng]),{padding:[55,55],maxZoom:11,animate:false})});
  }catch(error){$('snapshot-date').textContent='Data unavailable';$('details').innerHTML='<h2>Unable to load this snapshot</h2><p>Serve this project through a web server and reload. See the repository README for instructions.</p>';console.error(error)}
 }
 init();

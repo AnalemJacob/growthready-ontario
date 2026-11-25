@@ -88,3 +88,13 @@ python3 scripts/build_boundaries.py
 These boundaries are generalized at 0.00012 degrees with topology-preserving simplification for display. Each output component was checked as valid. Independent boundaries may have small gaps or overlaps after simplification; no topology agreement between neighbours or positional accuracy is claimed. Counts use source `MUN_NAME` attributes rather than a spatial join against generalized geometry. Five source application records labelled Other/Outside York Region remain in charts and totals but have no municipality shading.
 
 Received-date charts describe only records present in the snapshot. Closed or removed applications can be absent; this is not a historical series of all submissions, and 2026 is a partial calendar year. Period selection does not estimate construction timing.
+
+## Documented infrastructure timeline
+
+The timeline contains eight selected project records independently summarized from York's official construction page and the West Vaughan project page. It is a curated evidence set, not the full capital inventory. Every record retains its source URL, source section, retrieval timestamp and published completion-date precision. A date passing does not change commissioning or completion to confirmed.
+
+Municipality selection narrows both applications and project context. Application type, status, received date, water-reference and search filters apply to application records only. A separate project-sector filter and completion-year buttons refine the timeline. A municipality association is not a project-to-application dependency. Where no curated project matches, the UI says the evidence set has no matches rather than asserting no infrastructure exists.
+
+West Vaughan and the Markham Highway 7 watermain have explicit references to matched source construction line features. The Locate action highlights these works, which may cover only a portion of the project. It does not draw a service area or claim a site allocation. Unmatched projects are not assigned guessed coordinates. The Glenway listing does not identify a water/wastewater sector explicitly, so it is retained as Not specified.
+
+Application cluster labels use the centres of fixed 54-pixel Web Mercator grid cells, keeping adjacent count labels apart. Individual record markers retain their original display coordinates. Clicking a cluster explores its underlying records. The opening view fits application locations with fractional zoom steps; municipality geometry remains contextual.
