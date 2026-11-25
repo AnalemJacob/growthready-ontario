@@ -1,0 +1,157 @@
+{
+  "source": "https://ww8.yorkmaps.ca/arcgis/rest/services/OpenData/Boundary/MapServer/1",
+  "source_sha256": "6e9a08f638c23cc3bfc4eb36df55d116bb9002fc18eb77d6f7a231fc57741001",
+  "source_snapshot_retrieved_utc": "2026-11-25T05:16:23.004793+00:00",
+  "display_sha256": "5a280a2d2bf59628a425891e71aaeaf1da756f464eb9fb38473058ee4a0b4c84",
+  "maximum_simplification_tolerance_degrees": 0.00012,
+  "maximum_relative_area_change": 0.005,
+  "feature_count": 18,
+  "distinct_municipalities": 9,
+  "notes": "Municipal jurisdiction context only. Not service areas. Counts grouped by source application MUN_NAME, not spatial containment.",
+  "features": [
+    {
+      "objectid": 14,
+      "name": "Georgina",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 1.5e-05,
+      "relative_area_change": 0.0016476478263014228
+    },
+    {
+      "objectid": 15,
+      "name": "Georgina",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 9.375e-07,
+      "relative_area_change": 0.0028754988621177277
+    },
+    {
+      "objectid": 29,
+      "name": "Newmarket",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 0.00012,
+      "relative_area_change": 0.0001355555015429049
+    },
+    {
+      "objectid": 27,
+      "name": "Whitchurch-Stouffville",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 0.00012,
+      "relative_area_change": 0.00025271817119946924
+    },
+    {
+      "objectid": 44,
+      "name": "Georgina",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 1.875e-06,
+      "relative_area_change": 0.0028490242753269513
+    },
+    {
+      "objectid": 32,
+      "name": "King",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 0.00012,
+      "relative_area_change": 0.0001612431474367322
+    },
+    {
+      "objectid": 47,
+      "name": "Georgina",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 0.00012,
+      "relative_area_change": 0.000176915818426451
+    },
+    {
+      "objectid": 19,
+      "name": "Georgina",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 3.75e-06,
+      "relative_area_change": 0.004285227437967353
+    },
+    {
+      "objectid": 23,
+      "name": "Vaughan",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 0.00012,
+      "relative_area_change": 0.00021449924344105957
+    },
+    {
+      "objectid": 34,
+      "name": "East Gwillimbury",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 0.00012,
+      "relative_area_change": 9.57923505163012e-05
+    },
+    {
+      "objectid": 30,
+      "name": "Richmond Hill",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 0.00012,
+      "relative_area_change": 0.0002834634169821889
+    },
+    {
+      "objectid": 16,
+      "name": "Aurora",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 0.00012,
+      "relative_area_change": 0.00030821990810407337
+    },
+    {
+      "objectid": 46,
+      "name": "Georgina",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 3.75e-06,
+      "relative_area_change": 0.0008650331996623608
+    },
+    {
+      "objectid": 31,
+      "name": "Markham",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 0.00012,
+      "relative_area_change": 8.073895852419762e-05
+    },
+    {
+      "objectid": 38,
+      "name": "Georgina",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 0.00012,
+      "relative_area_change": 0.00012572395479904937
+    },
+    {
+      "objectid": 35,
+      "name": "Georgina",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 1.5e-05,
+      "relative_area_change": 0.003210571104472633
+    },
+    {
+      "objectid": 42,
+      "name": "Georgina",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 4.6875e-07,
+      "relative_area_change": 0.0002407594225320838
+    },
+    {
+      "objectid": 5,
+      "name": "Georgina",
+      "source_valid": true,
+      "display_valid": true,
+      "tolerance_degrees": 3.75e-06,
+      "relative_area_change": 0.003910909041295729
+    }
+  ]
+}

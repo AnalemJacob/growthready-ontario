@@ -20,6 +20,16 @@ Run validation with Node.js 18 or newer:
 npm test
 ```
 
+## Municipality analytics update
+
+- Switch between clustered application markers and municipality shading. Shading shows application-record totals, not infrastructure capacity or density.
+- Select bars in municipality, type, status and received-period charts to filter the dashboard.
+- Inspect a location in the side panel, compare records and export filtered CSV.
+- Read dynamically calculated findings and service-reference completeness, with source-status discrepancies in a separate data-quality panel.
+- On mobile, open the collapsible filters only when needed; the map and charts remain accessible.
+
+Water and wastewater service-area boundary polygons are intentionally excluded. Administrative municipality polygons are included solely as geographic context. Site capacity and utility connection eligibility remain unknown.
+
 ## What this version establishes
 
 - Source-linked application details and the two source status fields when they disagree.
@@ -56,10 +66,25 @@ Serve the repository root on any static host. All app assets and the display sna
 
 ## Next GIS work
 
-Validate spatial accuracy and topology against a documented sample; retain original polygon inspection; acquire authoritative service-area geometry; establish documented application-to-capital-project dependencies; integrate electricity evidence only when data access and permitted reuse are verified. Evaluate real servicing constraints before proposing any readiness score.
+Validate application spatial accuracy against a documented sample; retain original application polygon inspection; establish documented application-to-capital-project dependencies; integrate electricity evidence only when data access and permitted reuse are verified. Evaluate real servicing constraints before proposing any readiness score.
 
 ## Attribution
 
 Contains public sector information made available under [The Regional Municipality of York's Open Data Licence](https://insights-york.opendata.arcgis.com/documents/york-region-open-data-licence/explore). Source data remains subject to that licence. Basemap © OpenStreetMap contributors. Leaflet is distributed under its included BSD 2-Clause licence. No separate licence has yet been selected for original application code.
 
 Independent portfolio/research project; not endorsed by York Region, the Ontario Energy Board or any utility. Consult authoritative sources for current development and connection decisions.
+
+## Municipality display geometry
+
+`assets/data/municipalities.geojson` contains 18 components representing nine York municipalities, selected by the source `REGION = York` field. `data/boundary_display_audit.json` records source and display hashes, validation and simplification. A maximum tolerance of 0.00012 degrees is reduced for individual components until their relative area change is below 0.5%. This is a display check, not a positional-accuracy assessment. No First Nation jurisdiction is inferred from these polygons.
+
+To regenerate after refreshing raw data:
+
+```sh
+python3 -m pip install -r scripts/requirements-gis.txt
+python3 scripts/build_boundaries.py
+```
+
+These boundaries are generalized at 0.00012 degrees with topology-preserving simplification for display. Each output component was checked as valid. Independent boundaries may have small gaps or overlaps after simplification; no topology agreement between neighbours or positional accuracy is claimed. Counts use source `MUN_NAME` attributes rather than a spatial join against generalized geometry. Five source application records labelled Other/Outside York Region remain in charts and totals but have no municipality shading.
+
+Received-date charts describe only records present in the snapshot. Closed or removed applications can be absent; this is not a historical series of all submissions, and 2026 is a partial calendar year. Period selection does not estimate construction timing.
