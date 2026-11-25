@@ -1,6 +1,8 @@
 # GrowthReady Ontario
 
-**York Region pilot · Independent GIS portfolio project by Jacob Analem**
+**Version 1.0 · York Region pilot · Independent GIS portfolio project by Jacob Analem**
+
+[Live dashboard](https://analemjacob.github.io/growthready-ontario/) · [Findings & portfolio](https://analemjacob.github.io/growthready-ontario/about.html) · [Vaughan case study](https://analemjacob.github.io/growthready-ontario/vaughan.html) · [Release notes](docs/RELEASE_NOTES.md)
 
 An interactive map connecting development application records with documented water and wastewater infrastructure evidence. Explore **5,482 application records**, filter by municipality/type/source status/service reference, inspect source discrepancies, compare up to three applications, and export filtered CSV records.
 
@@ -72,13 +74,13 @@ Refresh acquisition validates counts and IDs; source failures must be investigat
 
 Serve the repository root on any static host. All app assets and the display snapshot use relative paths, including for a GitHub Pages project URL. The Leaflet 1.9.4 library and its licence are vendored in `assets/vendor`; map tiles require internet access. The application layers still work if the OpenStreetMap basemap is unavailable. Do not use the community tile service for heavy production traffic without reviewing its usage policy and selecting suitable hosting.
 
-## Next GIS work
+## Future extensions outside version 1.0
 
 Validate application spatial accuracy against a documented sample; establish documented application-to-capital-project dependencies; integrate electricity evidence only when data access and permitted reuse are verified. Evaluate real servicing constraints before proposing any readiness score.
 
 ## Attribution
 
-Contains public sector information made available under [The Regional Municipality of York's Open Data Licence](https://insights-york.opendata.arcgis.com/documents/york-region-open-data-licence/explore). Source data remains subject to that licence. Basemap © OpenStreetMap contributors. Leaflet is distributed under its included BSD 2-Clause licence. No separate licence has yet been selected for original application code.
+Contains public sector information made available under [The Regional Municipality of York's Open Data Licence](https://insights-york.opendata.arcgis.com/documents/york-region-open-data-licence/explore). Source data remains subject to that licence. Basemap © OpenStreetMap contributors. Leaflet is distributed under its included BSD 2-Clause licence. Original project code and documentation use the [MIT licence](LICENSE); source data and third-party materials retain their respective terms. See [third-party notices](THIRD_PARTY_NOTICES.md).
 
 Independent portfolio/research project; not endorsed by York Region, the Ontario Energy Board or any utility. Consult authoritative sources for current development and connection decisions.
 
@@ -106,3 +108,12 @@ Municipality selection narrows both applications and project context. Applicatio
 West Vaughan and the Markham Highway 7 watermain have explicit references to matched source construction line features. The Locate action highlights these works, which may cover only a portion of the project. It does not draw a service area or claim a site allocation. Unmatched projects are not assigned guessed coordinates. The Glenway listing does not identify a water/wastewater sector explicitly, so it is retained as Not specified.
 
 Application cluster labels use the centres of fixed 54-pixel Web Mercator grid cells, keeping adjacent count labels apart. Individual record markers retain their original display coordinates. Clicking a cluster explores its underlying records. The opening view fits application locations with fractional zoom steps; municipality geometry remains contextual.
+
+## Completed validation and portfolio package
+
+- [Independent QGIS cross-check](docs/QGIS_VALIDATION.md): all 1,382 Vaughan records, zero mismatches, source hashes and per-record results retained.
+- [Accessibility checks and limitations](docs/ACCESSIBILITY.md); [validation report](docs/VALIDATION.md).
+- [Portfolio narrative, role mapping and suggested application wording](docs/PORTFOLIO.md).
+- [Release scope and versioning](docs/RELEASE_NOTES.md); [refresh procedure](docs/MAINTENANCE.md).
+
+For optional browser checks, use Node 22 and install development dependencies with `npm ci`, then `npx playwright install chromium`. Run `npm run test:browser` and `npm run test:accessibility`. Set `BROWSER_EXECUTABLE` if using an existing Chromium. The static frontend itself needs no Node dependency installation.

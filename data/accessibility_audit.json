@@ -1,0 +1,103 @@
+{
+  "checked_at_utc": "2026-11-25T08:08:30.626354+00:00",
+  "axe_core_version": "4.14.1",
+  "scope": "Initial rendered state of all three pages at 1440, 390 and 320 px. WCAG 2 A/AA, 2.1 A/AA and 2.2 AA rule tags. Does not establish conformance.",
+  "results": [
+    {
+      "route": "index.html",
+      "width": 1440,
+      "violation_count": 0,
+      "passed_rule_count": 31,
+      "incomplete_rules": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "route": "vaughan.html",
+      "width": 1440,
+      "violation_count": 0,
+      "passed_rule_count": 28,
+      "incomplete_rules": [
+        "color-contrast",
+        "label-content-name-mismatch",
+        "link-in-text-block"
+      ]
+    },
+    {
+      "route": "about.html",
+      "width": 1440,
+      "violation_count": 0,
+      "passed_rule_count": 19,
+      "incomplete_rules": []
+    },
+    {
+      "route": "index.html",
+      "width": 390,
+      "violation_count": 0,
+      "passed_rule_count": 30,
+      "incomplete_rules": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "route": "vaughan.html",
+      "width": 390,
+      "violation_count": 0,
+      "passed_rule_count": 28,
+      "incomplete_rules": [
+        "color-contrast",
+        "label-content-name-mismatch",
+        "link-in-text-block"
+      ]
+    },
+    {
+      "route": "about.html",
+      "width": 390,
+      "violation_count": 0,
+      "passed_rule_count": 19,
+      "incomplete_rules": []
+    },
+    {
+      "route": "index.html",
+      "width": 320,
+      "violation_count": 0,
+      "passed_rule_count": 30,
+      "incomplete_rules": [
+        "color-contrast",
+        "label-content-name-mismatch"
+      ]
+    },
+    {
+      "route": "vaughan.html",
+      "width": 320,
+      "violation_count": 0,
+      "passed_rule_count": 28,
+      "incomplete_rules": [
+        "color-contrast",
+        "label-content-name-mismatch",
+        "link-in-text-block"
+      ]
+    },
+    {
+      "route": "about.html",
+      "width": 320,
+      "violation_count": 0,
+      "passed_rule_count": 19,
+      "incomplete_rules": []
+    }
+  ],
+  "limitations": "Incomplete colour/Leaflet zoom-symbol/attribution checks need human judgement. Keyboard paths tested separately; screen-reader, zoom/text-spacing and PDF/UA conformance not certified.",
+  "source_sha256": {
+    "index.html": "cb270976ed6adfe98c95fc007f5c2fd41918a70a54b8670fd81c1199ae1ef816",
+    "vaughan.html": "c242640c05a25edc78ab22532ffaff84623d481d77d65067cf4045920d4aedab",
+    "about.html": "8b1f365f01f6f5d9020488d23b957993e98bbd64c7485824c742a0fca93dc423",
+    "assets/style.css": "96652f62763bb28ecd7052d78d16d2b0dc015b1ff736d9071ec4215279fb41b8",
+    "assets/case.css": "7f333bd1ea03fdccf65354a10116df43ae4299c644721daa3d02f8b6287d3e41",
+    "assets/portfolio.css": "ee7295f59f57c6c94e2e19964f5087b09a34f46c61c487617c372f8e8418bf13",
+    "assets/app.js": "52ab24c91616465da636c5640f6d5ae9c510be1dc644ef73914e9f2e71941709",
+    "assets/case.js": "028efba8a25ba4c21d0dcfee35a3f653af70cea6b28f7a98877b73a8908531b6"
+  },
+  "limits": "Automated WCAG-tag scans and keyboard/viewport checks are not a conformance certification. Incomplete checks require manual review; see docs/ACCESSIBILITY.md."
+}

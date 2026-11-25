@@ -35,3 +35,13 @@ test('case-study filters combine type, distance band and case-insensitive addres
  const near=filterCaseRecords(d.records,{band:'0–250 m'}),s=caseSummary(near);assert.equal(s.count,191);assert.equal(s.within500,191);
  assert.equal(caseSummary([]).count,0);assert.equal(caseSummary([]).within500,0);assert.deepEqual(caseSummary([]).cells,[]);
 });
+
+ test('QGIS cross-check remains tied to the exact study and reconciles every record',()=>{
+ const q=JSON.parse(readFileSync(new URL('../data/qgis_validation.json',import.meta.url)));
+ assert.equal(q.study_sha256,createHash('sha256').update(raw).digest('hex'));
+ assert.equal(q.mismatch_count,0);assert.equal(q.checked_records,d.records.length);
+ assert.equal(q.grid_assignments_match,d.records.length);assert.equal(q.representative_points_covered_by_application_and_city,d.records.length);
+ assert.ok(q.max_absolute_difference_m<=q.distance_comparison_tolerance_m);
+ const checks=new Map(q.record_checks.map(r=>[r.id,r]));assert.equal(checks.size,d.records.length);
+ for(const r of d.records){const c=checks.get(r.id);assert.ok(c);assert.equal(c.nearest_line_id,r.nearest_line_id);assert.equal(c.band,r.band);assert.equal(c.grid_id,r.grid_id);assert.ok(Math.abs(c.qgis_distance_m-r.distance_m)<=0.001)}
+ });
