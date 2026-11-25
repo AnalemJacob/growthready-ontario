@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-11-25T08:08:30.626354+00:00",
+  "checked_at_utc": "2026-11-25T08:13:21.366095+00:00",
   "axe_core_version": "4.14.1",
   "scope": "Initial rendered state of all three pages at 1440, 390 and 320 px. WCAG 2 A/AA, 2.1 A/AA and 2.2 AA rule tags. Does not establish conformance.",
   "results": [
@@ -93,7 +93,7 @@
     "index.html": "cb270976ed6adfe98c95fc007f5c2fd41918a70a54b8670fd81c1199ae1ef816",
     "vaughan.html": "c242640c05a25edc78ab22532ffaff84623d481d77d65067cf4045920d4aedab",
     "about.html": "8b1f365f01f6f5d9020488d23b957993e98bbd64c7485824c742a0fca93dc423",
-    "assets/style.css": "96652f62763bb28ecd7052d78d16d2b0dc015b1ff736d9071ec4215279fb41b8",
+    "assets/style.css": "f0ac2d001c4a10bd92d99ba5770ee94389249883fc7edb23be92a140d1ed8e79",
     "assets/case.css": "7f333bd1ea03fdccf65354a10116df43ae4299c644721daa3d02f8b6287d3e41",
     "assets/portfolio.css": "ee7295f59f57c6c94e2e19964f5087b09a34f46c61c487617c372f8e8418bf13",
     "assets/app.js": "52ab24c91616465da636c5640f6d5ae9c510be1dc644ef73914e9f2e71941709",
